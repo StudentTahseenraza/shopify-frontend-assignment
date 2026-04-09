@@ -31,3 +31,7 @@ ehthumbs.db
 
 # Zip files (theme exports)
 *.zip
+
+config/settings_data.json
+locales/*
+*.log
