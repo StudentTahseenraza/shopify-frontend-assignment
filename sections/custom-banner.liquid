@@ -1,0 +1,226 @@
+{%- liquid
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign button_text = section.settings.button_text
+  assign bg_image = section.settings.background_image
+  assign text_color = section.settings.text_color
+  assign overlay_opacity = section.settings.overlay_opacity
+-%}
+
+<section class="custom-banner" 
+         {% if bg_image != blank %}style="background-image: url('{{ bg_image | image_url: width: 1920 }}');"{% endif %}>
+  <div class="banner-overlay" style="background: rgba(0, 0, 0, {{ overlay_opacity | divided_by: 100.0 }});"></div>
+  <div class="banner-container">
+    <div class="banner-content" style="color: {{ text_color }};">
+      {% if heading != blank %}
+        <h1 class="banner-heading">{{ heading | escape }}</h1>
+      {% endif %}
+      
+      {% if subheading != blank %}
+        <p class="banner-subheading">{{ subheading | escape }}</p>
+      {% endif %}
+      
+      {% if button_text != blank %}
+        <button class="banner-button" id="shopNowBtn">
+          <span class="button-text">{{ button_text | escape }}</span>
+          <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover our latest collection of premium apparel"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "%"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.custom-banner {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .custom-banner {
+    min-height: 70vh;
+  }
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.banner-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.banner-content {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.banner-heading {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.banner-subheading {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  color: #1a1a1a;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 48px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.banner-button .button-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.banner-button:hover {
+  background: #1a1a1a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.banner-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+.banner-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .banner-button {
+    padding: 12px 28px;
+    font-size: 0.875rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const shopNowBtn = document.getElementById('shopNowBtn');
+  if (shopNowBtn) {
+    shopNowBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const productGridSection = document.getElementById('product-grid-section');
+      if (productGridSection) {
+        const offset = 80;
+        const elementPosition = productGridSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+});
+</script>

@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node modules (if using Shopify CLI / build tools)
+node_modules/
+
+# Environment variables
+.env
+
+# Shopify CLI cache
+.shopify/
+.shopify-cli.yml
+
+# Build folders (if using bundlers like Webpack/Vite)
+dist/
+build/
+
+# Mac system files
+.AppleDouble
+.LSOverride
+
+# Windows system files
+ehthumbs.db
+
+# VS Code settings (optional)
+.vscode/
+
+# Zip files (theme exports)
+*.zip
