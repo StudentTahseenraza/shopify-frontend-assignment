@@ -35,8 +35,8 @@ Perfect for:
 
 ## 🚀 Live Demo
 
-👉 **Store:** https://your-store.myshopify.com/pages/test-page
-👉 **Video:** https://your-video-link
+👉 **Store:** [View Live Store](https://tahseen-raza-48-teststore.myshopify.com/pages/test-page?preview_theme_id=153541116044)
+👉 **Video:** [Watch Demo Video: ](https://drive.google.com/file/d/1OolcUoNtrXDRWvkrMUoyzR7h_9Mlh6tF/view?usp=sharing)
 
 ---
 
